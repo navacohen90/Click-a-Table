@@ -1,8 +1,19 @@
 ﻿function CourseDetailsController($scope, $routeParams, $http)
 {
-    $scope.orderCourse = orderCourse;
-
     var courseId = ($routeParams.courseId || "");
+    
+    $scope.orderCourse = orderCourse;
+    $scope.course = {}
+    
+    $http.get('/api/courses/details/' + courseId)
+        .success(function(data) {
+            $scope.course = data[0];
+            console.log(data);
+        })
+        .error(function(data) {
+            debugger;
+            console.log('Error: ' + data);
+        });
 
     function orderCourse() {
         var course = ({courseId: courseId, amount: 1/*$scope.amount*/});
@@ -17,6 +28,5 @@
             .error(function (error) {
                 console.log('Error: ' + error);
 
-            });
     }
 }
