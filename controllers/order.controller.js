@@ -107,21 +107,19 @@ function orderItem(req, res) {
             orderId = res_order._id;
             Course.findOne({
                 courseId: req.body.courseId
-            }, function(err, res_order_item) {
-                createOrderItem(req, res, orderId, err, res_order_item);
+            }, function(err, res_course) {
+                createOrderItem(req, res, orderId, err, res_course);
             });
         }
-
-
     });
 
 }
 
-function createOrderItem(req, res, orderId,  err, res_order_item) {
+function createOrderItem(req, res, orderId,  err, res_course) {
     if (err)
         return handleError(res, err);
 
-    createNewOrderItem(orderId, res_order_item._id, req.body.amount, function(err, new_item) {
+    createNewOrderItem(orderId, res_course._id, req.body.amount, function(err, new_item) {
             if (err)
                 return handleError(res, err);
 
@@ -138,8 +136,8 @@ function createOrder(req, res, err, count) {
             return handleError(res, err);
         console.dir(newItem);
         var orderId = newItem._id;
-        Course.findOne({ courseId: req.body.courseId}, function(err, res_order_item) {
-            createOrderItem(req, res, orderId, err, res_order_item);
+        Course.findOne({ courseId: req.body.courseId}, function(err, res_course) {
+            createOrderItem(req, res, orderId, err, res_course);
         });
     });
 }

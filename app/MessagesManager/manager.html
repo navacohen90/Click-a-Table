@@ -1,0 +1,19 @@
+
+<div ng-repeat="message in messages track by $index">
+    <br/>
+    <div class="menu-item-container">
+        <div class="course-item-desc">
+            {{message.tableNo}}
+        </div>
+        <div class="course-item-desc">
+            {{message.callType}}
+        </div>
+
+        <button ng-click="closeMessage(messages, $index, message.tableNo, message.callType)" class="btn">סגור קריאה</button>
+    </div>
+</div>
+
+
+<br/>
+<br />
+<a href="#/courseType/" class="btn btn-info">חזור לתפריט מנות</a>

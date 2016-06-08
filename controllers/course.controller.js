@@ -68,7 +68,7 @@ function getByCourseItem(req, res) {
 function getByCourseId(req, res) {
     if (req.params.courseId != "0") //TODO for init - maybe should find another way
     {
-        Course.find({courseId: req.params.courseId}, function (err, courses) {
+        Course.findOne({courseId: req.params.courseId}, function (err, courses) {
             if (err)
                 res.send(err);
 
