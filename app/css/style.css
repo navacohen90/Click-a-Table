@@ -111,6 +111,11 @@ height: 50px;
     display: block;
 }
 
+.#ContainerInfo h4{
+	color:#435e73;
+	font-weight:bold;
+}
+
 .menu-item-container img{
     max-width: 60px;
     width: 50px;
