@@ -112,8 +112,8 @@ height: 50px;
 }
 
 .#ContainerInfo h4{
-	color:#435e73;
-	font-weight:bold;
+	color:#435e73 !important;
+	font-weight:bold  !important;
 }
 
 .menu-item-container img{
