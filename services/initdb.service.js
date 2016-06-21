@@ -92,7 +92,7 @@ function initCourses() {
     var obj = new Course({ courseId: 11, courseTypeId: 10, label: "סלט הבית עם פטריות וחלומי", image: "Salads/4.jpg",businessPrice:"50",price:"60" });
     obj.save();
 
-    var obj = new Course({ courseId: 12, courseTypeId: 8, label: "שוקי עוף מתובלים פלפל שטה בלווי ציפס", image: "Business/1.jpg",businessPrice:"30",price:"40" });
+    var obj = new Course({ courseId: 12, courseTypeId: 8, label: "בלים פלפל שטה בלווי ציפס", image: "Business/1.jpg",businessPrice:"30",price:"40" });
     obj.save();
 
     var obj = new Course({ courseId: 13, courseTypeId: 8, label: "בלניצס בשר עם רוטב פטריות", image: "Business/2.jpg",businessPrice:"40",price:"50" });
