@@ -125,15 +125,17 @@ h4{
 .menu-item {
     border : #e67b21 3px solid;
     display: inline-block;
-    width: 150px;
-    height: 150px;
+    width: 180px;
+    height: 180px;
     margin: 2px;
 }
 
+.menu-item-img{/* float:right; */margin:20px 30px;height: 100px;left: 0;right: 0;}
 .menu-item-img{
-float:right;
 margin:20px 30px;
-height:90px;
+height:100px;
+left: 0;
+right: 0;
 }
 
 .menu-item-txt {
