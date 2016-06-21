@@ -154,6 +154,12 @@ right: 0;
     height: 150px;
 }
 
+.menu-title{
+background-color:#a8cae5 !important;	
+border:#428bca 3px solid;
+min-width:89% !important;
+}
+
 .order-item {
     margin-top:15px;
     border-radius: 10px;
