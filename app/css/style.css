@@ -72,6 +72,7 @@ height: 50px;
     align-content: center;
     height: 500px;
     position : absolute;
+    -webkit-box-shadow: 0 0 20px #ee4e00;
 }
 
 #DinerImg
