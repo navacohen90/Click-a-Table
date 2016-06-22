@@ -10,6 +10,9 @@ var connection = mongoose.createConnection(config.connectionString);//connect to
 var userSchema = require('../models/user.model');
 var User = connection.model('User', userSchema);
 
+var tableSchema = require('../models/table.model');
+var Table = connection.model('Table', tableSchema);
+
 var request = require('request');
 
 // routes
@@ -46,9 +49,13 @@ router.post('/login', function (req, res) {
         if (user) {
 
             req.session.user = user;
-            //console.log(req.session);
-
-            res.json({ isLogged: true, message: "כניסה בוצעה בהצלחה", user: user });
+            Table.findOne({ userId: user._id }, function (err, table) {
+                if (table != null)
+                    req.session.table = table;
+                res.json({ isLogged: true, message: "כניסה בוצעה בהצלחה", user: user });
+            });
+            
+            
 
         }
         else {
