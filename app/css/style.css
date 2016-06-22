@@ -194,6 +194,7 @@ min-width:89% !important;
 .course-item-img img {
     min-width: 254px;
     height:160px;
+    margin-top:-12px;
     margin-right:-14px;
 }
 
