@@ -239,6 +239,10 @@ min-width:89% !important;
     border-top:#607899 5px solid !important;
     background-color:#cfaf9b !important;
     height: 30px;
+    color: #0f3958;
+    font-size : large;
+    font-style : oblique;
+    font-weight : bold;
 }
 
 .navbar-fixed-top{
