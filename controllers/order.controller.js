@@ -85,6 +85,8 @@ function orderItem(req, res) {
         res.json({ isSaved: false, messages: "לא ניתן לבצע פעולה זו ללא הזמנת שולחן" });
         return;
     }
+
+    var restaurantId = 1;
 	
     var date = new Date();
     date.setHours(0,0,0,0);
@@ -93,7 +95,7 @@ function orderItem(req, res) {
 	console.log("orderItem courseId: " + req.body.courseId);
 	console.log("orderItem userId: " + req.session.user._id);
 	
-    Order.findOne({userId: req.session.user._id, restaurantId: 1, date: date, status: 1}, function(err, res_order) {
+    Order.findOne({userId: req.session.user._id, restaurantId: restaurantId, date: date, status: 1}, function(err, res_order) {
         if (err)
             return handleError(res, err);
 

@@ -246,4 +246,22 @@ min-width:89% !important;
     width:90% !important;
     margin:0 25px;
 }
+
+.manager-body {
+    /*float: right;*/
 }
+
+.manager-calls {
+    float: right;
+}
+
+.manager-orders {
+    float: left;
+}
+
+.manager-grid-title {
+    font-size : 22px;
+    font-family:Arial Unicode MS;
+    text-shadow:1px 1px 15px rgb(7, 5, 4);
+}
+
