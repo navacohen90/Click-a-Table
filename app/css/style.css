@@ -133,15 +133,15 @@ h4{
 }
 
 .menu-item-img{
-margin:20px 30px;
-height:100px;
+margin:0 auto;
+height:130px;
 left: 0;
 right: 0;
+margin-top:10px;
 }
 
 .menu-item-txt {
     float:right;
-    margin:-10px 0;
     width:100%;
     color: white;
     font-weight: bold;
