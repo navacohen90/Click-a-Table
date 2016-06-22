@@ -204,6 +204,7 @@ min-width:89% !important;
     float : right;
     width: 100%;
     color : antiquewhite;
+    font-family:Arial Unicode MS;
 }
 
 .course-item-desc span {
