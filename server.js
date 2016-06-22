@@ -6,6 +6,16 @@ var path = require('path');
 var port = process.env.PORT || 3000;
 //initalization for using POST calls
 var bodyParser = require('body-parser');
+
+
+app.use(function (req, res, next) {
+    res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+    res.header('Expires', '-1');
+    res.header('Pragma', 'no-cache');
+    next()
+});
+
+
 app.use(bodyParser.urlencoded({ extended: false }));//read URL encoded
 app.use(bodyParser.json()); //read json data
 
@@ -29,6 +39,7 @@ app.use('/table', require('./controllers/table.controller'));
 app.get('/', function (req, res) {
     return res.redirect('/app');
 });
+
 
 //listen on port
 var server = app.listen(port, function(){
