@@ -274,6 +274,7 @@ min-width:89% !important;
 
 .courses{
 	min-width :540px !important;
+	display:table;
 }
 
 .form-control{
