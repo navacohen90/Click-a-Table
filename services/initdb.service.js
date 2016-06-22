@@ -32,7 +32,7 @@ function initMenu() {
     obj = new Menu({ id: 3, name: "שתיה", image: "Menu/Drink.png", parentId: 0, onClick: "", hasChildren: false });
     obj.save();
 
-    obj = new Menu({ id: 4, name: "מה הזמנתי", image: "Menu/ListFood.png", parentId: 0, onClick: "", hasChildren: false });
+    obj = new Menu({ id: 4, name: "מה הזמנתי", image: "Menu/ListFood.png", parentId: 0, onClick: "showOrder", hasChildren: false });
     obj.save();
 
     obj = new Menu({ id: 5, name: "קריאה למלצר", image: "Menu/CallWaiter.png", parentId: 0, onClick: "callWaiter", hasChildren: false });

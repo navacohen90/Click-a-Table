@@ -39,6 +39,10 @@
     }
     $scope.menuClicked = function (itemOnClick) {
         switch (itemOnClick) {
+            case "showOrder":
+				window.location.replace('#/order');               
+                break;
+				
             case "callWaiter":
                 $scope.saveCalls("Waiter");
                 break;

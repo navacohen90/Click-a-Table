@@ -10,7 +10,10 @@
                 $scope.result = response;
                 if (response.isLogged == true) {
                     window.location.reload();
-                    window.location.replace('#/index');
+					if (response.user.isManager)
+						window.location.replace('#/manager');
+					else
+						window.location.replace('#/index');
                 }
                 else
                     $scope.result.class = "errMessage";

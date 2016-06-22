@@ -2,15 +2,16 @@
     var user;
     $scope.setMenuItems  = function() {
         var isLogged = (user != null);
-
+		var isManager = user && user.isManager;
+		
         $scope.items = [
-            { label: "דף הבית", path: "#/HomePage", imageSrc: "", isActive: true, isVisible: true, onClick: "" },
+            { label: "דף הבית", path: "#/HomePage", imageSrc: "", isActive: true, isVisible: !isManager, onClick: "" },
             { label: "התחבר", path: "#/login", imageSrc: "", isActive: false, isVisible: !isLogged, onClick: "" },
             { label: "התנתק", path: "#", imageSrc: "", isActive: false, isVisible: isLogged, onClick: "logout" },
-            { label: "מסעדה", path: "#/menu", imageSrc: "", isActive: false, isVisible: true, onClick: "" },
-            /*{ label: "סוגי תפריטים", path: "#/courseType", imageSrc: "", isActive: false },
-            { label: "תפריט מנות", path: "#/course", imageSrc: "", isActive: false },*/
-            { label: "סל הזמנה", path: "#/order", imageSrc: "", isActive: false, isVisible: true, onClick: "" }
+            { label: "מסעדה", path: "#/menu", imageSrc: "", isActive: false, isVisible: !isManager, onClick: "" },
+            { label: "סל הזמנה", path: "#/order", imageSrc: "", isActive: false, isVisible: !isManager, onClick: "" },
+			{ label: "מנהל", path: "#/manager", imageSrc: "", isActive: false, isVisible: isManager, onClick: "" }
+			
         ];
     }
     $http.post('/auth/getSessionDetails')
