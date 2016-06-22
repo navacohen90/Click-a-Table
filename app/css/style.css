@@ -62,6 +62,7 @@ height: 50px;
 	color:#ff9c47;
 	font-size : 22px;
 	font-family:Arial Unicode MS;
+	text-shadow:1px 1px 15px rgb(7, 5, 4);
 }
 
 .menu-item-container {
