@@ -81,6 +81,10 @@ function orderItem(req, res) {
         res.json({ isOrdered: false, messages: "לא ניתן לבצע פעולה זו ללא כניסה למערכת/הרשמה" });
         return;
     }
+    if (req.session.table == null) {
+        res.json({ isSaved: false, messages: "לא ניתן לבצע פעולה זו ללא הזמנת שולחן" });
+        return;
+    }
 	
     var date = new Date();
     date.setHours(0,0,0,0);
@@ -123,7 +127,7 @@ function createOrder(req, res, err, count) {
     if (err)
         return handleError(res, err);
 
-    createNewOrder(/*id*/(count + 1), req.session.user._id, /*restaurantId*/1, /*tableNo*/1, function (err, newItem) {
+    createNewOrder(/*id*/(count + 1), req.session.user._id, /*restaurantId*/1, /*tableNo*/req.session.table.tableNo, function (err, newItem) {
         if (err)
             return handleError(res, err);
         console.dir(newItem);
