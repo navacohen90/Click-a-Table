@@ -116,6 +116,8 @@ height: 50px;
 h4{
 	color:#435e73 !important;
 	font-weight:bold  !important;
+	font-family:Arial Unicode MS;
+	font-size:20px;
 }
 
 .menu-item-container img{
