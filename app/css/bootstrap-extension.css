@@ -30,8 +30,15 @@
 
 
 h4{
-	color:#435e73 !important;
+	color:#ffd1b0 !important;
 	font-weight:bold  !important;
 	font-family:Arial Unicode MS;
 	font-size:20px;
+	text-shadow:1px 1px 15px rgb(7, 5, 4);
+}
+
+h5{
+	color:#efa38c !important;
+        font-family:Arial Unicode MS;
+        font-size: 16px;
 }
