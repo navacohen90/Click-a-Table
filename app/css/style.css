@@ -205,6 +205,12 @@ min-width:89% !important;
 	color:aliceblue;
 }
 
+.course-details-img{
+	float:right;	
+	-webkit-box-shadow:0 0 10px rgba(0, 0, 0, .8);
+	margin-top:5px;
+}
+
 .panel-footer {
     margin-top: 50px;
 }
