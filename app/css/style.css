@@ -257,10 +257,12 @@ min-width:89% !important;
 
 .manager-calls {
     float: right;
+    padding-top:30px;
 }
 
 .manager-orders {
     float: left;
+    padding-top:30px;
 }
 
 .manager-grid-title {
