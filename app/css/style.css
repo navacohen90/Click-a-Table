@@ -85,7 +85,10 @@ height: 50px;
     margin:10px;
 }
 
-
+#HomeImg img: hover{
+	width:210px;
+	height:160px;
+}
 .menu-item-container img{
     max-width: 60px;
     width: 50px;
