@@ -47,6 +47,9 @@ height: 50px;
 {
     width: 550px;
     height: 400px;
+    box-shadow:0 0 30px #000000;
+    padding:3px;
+    opacity:0.9;
 }
 
 .container_wrapper {
