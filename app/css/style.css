@@ -16,8 +16,7 @@ body {
 }
 
 #HomeImg > img: hover{
-	width:210px;
-	height:160px;
+-webkit-box-shadow: 0 0 20px #ee4e00;
 }
 
 .logo{
