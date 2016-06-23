@@ -281,4 +281,7 @@ min-width:89% !important;
     font-family:Arial Unicode MS;
     text-shadow:1px 1px 15px rgb(7, 5, 4);
 }
-
+.count{
+	font-family:Arial Unicode MS;
+	color:#fe972d;
+}
