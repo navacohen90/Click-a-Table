@@ -105,10 +105,11 @@ height:130px;
 left: 0;
 right: 0;
 margin-top:10px;
+box-shadow:0 0 15px #36ff00;
 }
 
 .menu-item-img:hover{
-	
+box-shadow:0 0 15px #ff0000;	
 }
 
 .menu-item-txt {
