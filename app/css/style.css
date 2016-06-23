@@ -35,6 +35,7 @@ height: 50px;
 
 #ContainerInfo
 {
+    margin-left:-270px;
     align-content: center;
     height: 500px;
     position : absolute;
