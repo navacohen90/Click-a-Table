@@ -208,7 +208,7 @@ min-width:89% !important;
 .course-details-img{
 	float:right;	
 	-webkit-box-shadow:0 0 10px rgba(0, 0, 0, .8);
-	margin-top:5px;
+	margin-top:5px !important;
 }
 
 .panel-footer {
