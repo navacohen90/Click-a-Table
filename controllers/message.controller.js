@@ -16,6 +16,8 @@ var courseSchema = require('../models/course.model');
 var Course = connection.model('Course', courseSchema);
 var orderSchema = require('../models/order.model');
 var Order = connection.model('Order', orderSchema);
+var tableSchema = require('../models/table.model');
+var Table = connection.model('Table', tableSchema);
 
 // routes
 // router.post('/addMessage', addMessage);
@@ -33,27 +35,37 @@ function getOpenUserCallMessages(req, res) {
         res.json(messages);
     });
 }
+
 function getOpenOrders(req, res) {
-    var courses = [];
-    OrderItem.find({status: 1}).sort({orderTime: 1}).exec(function(err, items) {
+    getOpenOrdersList(function (err, courses) {
         if (err)
             return handleError(res, err);
+        res.json(courses);
+    });
+}
+
+function getOpenOrdersList(callback) {
+    var courses = [];
+
+    //find all order items
+    OrderItem.find({status: 1}).sort({orderTime: 1}).exec(function(err, items) {
+        if (err)
+            return callback(err);
 
         var index = 0;
+        if (items.length <= 0)
+            return callback(null, courses);
+        
         items.forEach(function(item) {
             console.log("order items: " + item);
 
             Order.findOne({id : item.orderId}, function(err, order) {
-                //console.log("start Course findOne err:" + err);
                 if (err)
-                    return handleError(res, err);
+                    return callback(err);
 
                 Course.findOne({courseId: item.courseId}, function (err, course) {
-                    //console.log("start Course findOne err:" + err);
                     if (err)
-                        return handleError(res, err);
-
-                    //console.log("start Course findOne course: " + course);
+                        return callback(err);
 
                     if (course != null) {
                         courses.push({
@@ -70,40 +82,73 @@ function getOpenOrders(req, res) {
                     index++;
 
                     if (index == items.length)
-                        res.json(courses);
+                        return callback(null, courses);
                 });
             });
         });
     });
 
 }
-/*
-function addMessage(req, res) {
-    var tableNo = req.body.tableNo;
-    var type = req.body.type;
-    Message.count({ userId: req.session.user, tableNo: tableNo, type: type, status: 1}, function (err, count) {
-        if (count <= 0) {
-            var obj = new Message({ userId: req.session.user, tableNo: tableNo, type: type, status: 1, createTime: 0 });
-            obj.save(function (err, newItem) {
-                if (err)
-                    return handleError(res, err);
-                res.json({isDone: true, messages: "מלצר בדרך"});
-            });
-        }
-    });
-}*/
 
 function closeMessage(req, res) {
+
     var tableNo = req.body.tableNo;
     var type = req.body.type;
-    var restaurantId = req.body.restaurantId;
+    var restaurantId = 1;
 
+    switch (type) {
+        case "Waiter":
+            closeCall(restaurantId, type, tableNo, function (err, numAffected) {
+                if (err)
+                    res.send(err);
+                res.json({isDone: true, messages: "קריאה נסגרה"});
+            });
+            break;
+
+        case "Bill":
+            getOpenOrdersList(function(err, courses) {
+                var userCourses = [];
+               courses.forEach(function(item) {
+                   var tableNo = req.body.tableNo;
+                   if (item.tableNo == tableNo)
+                       userCourses.push(item);
+               });
+
+                if (userCourses.length > 0) {
+                    res.json({isDone: false, messages: "לא ניתן לקבל חשבונית, ישנן הזמנות פתוחות"});
+                }
+                else {
+                    var tableNo = req.body.tableNo;
+                    closeOrderByTableNo(tableNo, function (err, numAffected) {
+                        if (err)
+                            return handleError(res, err);
+                        closeTable(tableNo, function (err, numTablesAffected) {
+                            if (err)
+                                return handleError(res, err);
+                            closeCall(restaurantId, type, tableNo, function (err, numAffected) {
+                                if (err)
+                                    handleError(res, err);
+                                res.json({isDone: true, messages: "הזמנה נסגרה, שולחן מספר " + tableNo + " נסגר, חשבונית נשלחה"});
+                            });
+                        });
+                    });
+                }
+
+            });
+            break;
+
+        default:
+            break;
+    }
+}
+
+function closeCall(restaurantId, type, tableNo, callback) {
 
     UserCall.update({ /*userId: req.session.user._id,*/ restaurantId: restaurantId, tableNo: tableNo, callType: type, status: 1}, {status: 0},
         function(err, numAffected) {
             if (err)
-                res.send(err);
-            res.json({isDone: true, messages: "קריאה נסגרה"});
+                return callback(err);
+            return callback(null, numAffected);//res.json({isDone: true, messages: "קריאה נסגרה"});
         }
     );
 }
@@ -123,18 +168,43 @@ function closeOrderItem(req, res) {
 
 function closeOrder(req, res) {
     var tableNo = req.body.tableNo;
-    var orderId = req.body.orderId;
+    // var orderId = req.body.orderId;
+
+    closeOrderByTableNo(tableNo, function (err, numAffected) {
+        if (err)
+            return handleError(res, err);
+        res.json({isDone: true, messages: "הזמנה נסגרה"});
+    });
+}
+
+
+function closeOrderByTableNo(tableNo, callback) {
     var date = new Date();
     date.setHours(0,0,0,0);
 
 
-    Order.update({ id: orderId, tableNo: tableNo, date: date, status: 1}, {status: 0},
+    Order.update({ tableNo: tableNo, date: date, status: 1}, {status: 0},
         function(err, numAffected) {
             if (err)
-                res.send(err);
-            res.json({isDone: true, messages: "הזמנה נסגרה"});
+                return callback(err);
+            return callback(null, numAffected);
+            // res.json({isDone: true, messages: "הזמנה נסגרה"});
         }
     );
+}
+
+
+function closeTable(tableNo, callback) {
+    Table.update({ tableNo: tableNo, /*date: new Date(),*/ status: 1}, {status: 0, userId: null},
+        function (err, numAffected) {
+            if (err) {
+                console.error(err);
+                return callback(err);
+            }
+            return callback(null, numAffected);
+        }
+    );
+
 }
 
 function handleError(res, err) {

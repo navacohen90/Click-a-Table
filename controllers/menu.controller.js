@@ -78,35 +78,42 @@ function saveCalls(req, res) {
         res.json({ isSaved: false, messages: "לא ניתן לבצע פעולה זו ללא הזמנת שולחן" });
         return;
     }
-    var newUserCall = new UserCall({
-        userId: req.session.user._id,
-        restaurantId: 1,
-        tableNo: req.session.table.tableNo,
-        date: date,
-        callType: type,
-        status: 1 /*open*/ 
-	});
-		
-    newUserCall.save(function (err, newUserCall) {
-        if (err) {
-            console.error(err);
-            return callback(err);
-        }
-    });     
-    
-    var message;
-    switch (type) {
-        case "Waiter":
-            message = "מלצר בדרך אליך";
-            break;
 
-        case "Bill":
-            message = "חשבון בדרך אליך";
-            break;
-			
-        default:
-            message = "סוג קריאה לא ידוע. קריאה נשמרה במערכת";
-            break;
-    }
-    res.json({ isSaved: true, messages: message });
+    UserCall.count({ userId: req.session.user._id,  tableNo: req.session.table.tableNo, callType: type, status: 1}, function (err, count) {
+        if (count <= 0) {
+            var newUserCall = new UserCall({
+                userId: req.session.user._id,
+                restaurantId: 1,
+                tableNo: req.session.table.tableNo,
+                date: date,
+                callType: type,
+                status: 1 /*open*/
+            });
+
+            newUserCall.save(function (err, newUserCall) {
+                if (err) {
+                    console.error(err);
+                    return;
+                }
+            });
+
+            var message;
+            switch (type) {
+                case "Waiter":
+                    message = "מלצר בדרך אליך";
+                    break;
+
+                case "Bill":
+                    message = "חשבון בדרך אליך";
+                    break;
+
+                default:
+                    message = "סוג קריאה לא ידוע. קריאה נשמרה במערכת";
+                    break;
+            }
+            res.json({ isSaved: true, messages: message });
+        }
+    });
+
+
 }

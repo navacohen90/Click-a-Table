@@ -40,6 +40,10 @@ function ManagerController($scope, $http) {
             .success(function (response) {
                 if (response.isDone == true) {
                     loadCalls();
+                    alert(response.messages);
+                }
+                else {
+                    alert(response.messages);
                 }
             })
             .error(function (error) {

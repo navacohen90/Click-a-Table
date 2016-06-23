@@ -3,6 +3,7 @@
     $scope.onLoad = onLoad;
     $scope.orderCourse = orderCourse;
     $scope.course = {}
+    $scope.amount = 1;
     
     var courseId = ($routeParams.courseId || "");
 
